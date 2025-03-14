@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web API Példák</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f4f4f4;
+    }
+    section {
+      margin-bottom: 40px;
+    }
+    h2 {
+      color: #333;
+    }
+    .box {
+      border: 1px solid #ccc;
+      padding: 20px;
+      background-color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Web Storage -->
+  <section>
+    <h2>Web Storage</h2>
+    <div class="box">
+      <input type="text" id="nameInput" placeholder="Írd be a neved">
+      <button onclick="saveData()">Mentés</button>
+      <p id="savedData"></p>
+    </div>
+  </section>
+
+  <!-- Web Workers -->
+  <section>
+    <h2>Web Worker</h2>
+    <div class="box">
+      <button onclick="startWorker()">Worker indítása</button>
+      <button onclick="stopWorker()">Worker leállítása</button>
+      <p id="output"></p>
+    </div>
+  </section>
+
+  <!-- Server-Sent Events -->
+  <section>
+    <h2>Server-Sent Events (SSE)</h2>
+    <div class="box">
+      <div id="messages"></div>
+    </div>
+  </section>
+
+  <!-- Geolocation API -->
+  <section>
+    <h2>Geolocation API</h2>
+    <div class="box">
+      <button onclick="getLocation()">Hely meghatározása</button>
+      <p id="location"></p>
+    </div>
+  </section>
+
+  <!-- Drag and Drop API -->
+  <section>
+    <h2>Drag and Drop</h2>
+    <div class="box">
+      <div id="drag-item" draggable="true" ondragstart="drag(event)">Húzz ide!</div>
+      <div id="drop-area" ondrop="drop(event)" ondragover="allowDrop(event)">Húzd ide!</div>
+    </div>
+  </section>
+
+  <!-- Canvas -->
+  <section>
+    <h2>Canvas</h2>
+    <div class="box">
+      <canvas id="myCanvas" width="500" height="500" style="border: 1px solid #000;"></canvas>
+    </div>
+  </section>
+
+  <!-- SVG -->
+  <section>
+    <h2>SVG</h2>
+    <div class="box">
+      <svg width="300" height="200">
+        <rect width="100" height="100" style="fill:blue;" />
+        <circle cx="200" cy="100" r="50" style="fill:red;" />
+        <text x="10" y="180" font-size="20" fill="black">Ez egy SVG példa</text>
+      </svg>
+    </div>
+  </section>
+
+  <script>
+    // Web Storage példa
+    function saveData() {
+      const name = document.getElementById('nameInput').value;
+      localStorage.setItem('userName', name);
+      displayData();
+    }
+
+    function displayData() {
+      const name = localStorage.getItem('userName');
+      document.getElementById('savedData').innerText = name ? `Mentett név: ${name}` : 'Nincs mentett név.';
+    }
+
+    window.onload = displayData;
+
+    // Web Worker példa
+    let worker;
+
+    function startWorker() {
+      if (typeof Worker !== "undefined") {
+        if (!worker) {
+          worker = new Worker("worker.js");
+          worker.onmessage = function(event) {
+            document.getElementById('output').innerText = 'Worker válasz: ' + event.data;
+          };
+        }
+      } else {
+        alert("A böngésző nem támogatja a Web Worker-eket.");
+      }
+    }
+
+    function stopWorker() {
+      worker.terminate();
+      worker = null;
+      document.getElementById('output').innerText = "Worker leállítva.";
+    }
+
+    // Server-Sent Events példa
+    if (typeof(EventSource) !== "undefined") {
+      var source = new EventSource("server.php");
+      source.onmessage = function(event) {
+        document.getElementById("messages").innerHTML += `<p>${event.data}</p>`;
+      };
+    } else {
+      document.getElementById("messages").innerHTML = "A böngésző nem támogatja az SSE-t.";
+    }
+
+    // Geolocation API példa
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+      } else {
+        document.getElementById("location").innerHTML = "Geolocation nem támogatott ezen a böngészőn.";
+      }
+    }
+
+    function showPosition(position) {
+      document.getElementById("location").innerHTML =
+        "Szélesség: " + position.coords.latitude + "<br>Hosszúság: " + position.coords.longitude;
+    }
+
+    function showError(error) {
+      switch(error.code) {
+        case error.PERMISSION_DENIED:
+          document.getElementById("location").innerHTML = "A felhasználó nem engedélyezte a helymeghatározást.";
+          break;
+        case error.POSITION_UNAVAILABLE:
+          document.getElementById("location").innerHTML = "Helyadatok nem érhetők el.";
+          break;
+        case error.TIMEOUT:
+          document.getElementById("location").innerHTML = "A helymeghatározás időtúllépés miatt nem sikerült.";
+          break;
+        case error.UNKNOWN_ERROR:
+          document.getElementById("location").innerHTML = "Ismeretlen hiba történt.";
+          break;
+      }
+    }
+
+    // Drag and Drop API példa
+    function allowDrop(event) {
+      event.preventDefault();
+    }
+
+    function drag(event) {
+      event.dataTransfer.setData("text", event.target.id);
+    }
+
+    function drop(event) {
+      event.preventDefault();
+      var data = event.dataTransfer.getData("text");
+      var draggedElement = document.getElementById(data);
+      event.target.appendChild(draggedElement);
+    }
+
+    // Canvas példa
+    const canvas = document.getElementById("myCanvas");
+    const ctx = canvas.getContext("2d");
+
+    ctx.fillStyle = "lightblue";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.beginPath();
+    ctx.arc(250, 250, 100, 0, Math.PI * 2, false);
+    ctx.fillStyle = "red";
+    ctx.fill();
+    ctx.stroke();
+  </script>
+
+  <script id="worker.js">
+    onmessage = function() {
+      postMessage("Helló a Worker-ből!");
+    }
+  </script>
+</body>
+</html>

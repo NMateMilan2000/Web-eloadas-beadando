@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <header>
+        <h1>Web-programozás-1 Előadás Házi feladat</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html" class="active">Főoldal</a></li>
+            <li><a href="tabla/tabla.html">Táblázat</a></li>
+            <li><a href="html5.html">HTML5 API</a></li>
+            <li><a href="chart.html">ChartJS</a></li>
+            <li><a href="ajax.html">AJAX</a></li>
+            <li><a href="oojs.html">OOJS</a></li>
+        </ul>
+    </nav>
+    <aside>
+        <p>Hasznos információk és linkek</p>
+    </aside>
+        <p>A sorokra kattintva lehet a rendezést állítani!</p>
+        <div>
+            <label for="filter-nev">Név szűrés:</label>
+            <input type="text" id="filter-nev" oninput="filterTable()">
+            
+            <label for="filter-kor">Kor szűrés:</label>
+            <input type="text" id="filter-kor" oninput="filterTable()">
+            
+            <label for="filter-magassag">Magasság szűrés:</label>
+            <input type="text" id="filter-magassag" oninput="filterTable()">
+          </div>
+    <div class="content">
+        <table id="tbl">
+            <tr>
+                <th> 
+                Azonosító
+                </th>
+                <th>
+                Név
+                </th>
+                <th>
+                Kor
+                </th>
+                <th>
+                Magasság
+                </th>
+            </tr>
+        </table>
+        <div>
+            <label>
+                Név
+            </label>
+            <input id="nev" type="text" onkeyup="_validateInput('nev')">
+            <br>
+            <label>
+                Kor
+            </label>
+            <input id="kor" type="number" onkeyup="_validateInput('kor')">
+            <br>
+            <label>
+                Magasság
+            </label>
+            <input id="magassag" type="number" onkeyup="_validateInput('magassag')">
+            <button id="add" onclick="Add()">
+                Hozzáadás
+            </button>
+        </div>
+        <div>
+            <label>
+                Azonosító
+            </label>
+            <input id="tor" type="number" value="0">
+            <button onclick="del()">
+                Törlés
+            </button>
+        </div>
+        <div>
+            <label>
+                ID
+            </label>
+            <input id="IDD" type="number" onkeyup="_validateInput('IDD')">
+            <br>
+            <label>
+                Név
+            </label>
+            <input id="nevv" type="text" onkeyup="_validateInput('nevv')">
+            <br>
+            <label>
+                Kor
+            </label>
+            <input id="korr" type="number" onkeyup="_validateInput('korr')">
+            <br>
+            <label>
+                Magasság
+            </label>
+            <input id="magassagg" type="number" onkeyup="_validateInput('magassagg')">
+            <button id="add" onclick="update()">
+                Frissítés
+            </button>
+        </div>
+    </div>
+    <footer>
+        <p>Készítők: Nagy Máté Milán, Kovács Zoltán | CN72T, </p>
+    </footer>
+
+    <script src="table.js"></script>
+
+</body>
+</html>
