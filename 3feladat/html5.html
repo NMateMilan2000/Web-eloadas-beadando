@@ -3,28 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="html5.css">
   <title>Web API Példák</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background-color: #f4f4f4;
-    }
-    section {
-      margin-bottom: 40px;
-    }
-    h2 {
-      color: #333;
-    }
-    .box {
-      border: 1px solid #ccc;
-      padding: 20px;
-      background-color: #fff;
-    }
-  </style>
 </head>
 <body>
-
+  <nav>
+    <ul>
+        <li><a href="/index.html">Főoldal</a></li>
+        <li><a href="/2feladat/tabla.html">Táblázat</a></li>
+        <li><a href="/3feladat/html5.html" class="active">HTML5 API</a></li>
+        <li><a href="/4feladat/ChartJS.html">ChartJS</a></li>
+        <li><a href="/5feladat/ajax.html">AJAX</a></li>
+        <li><a href="/6feladat/oojs.html">OOJS</a></li>
+    </ul>
+</nav>
   <!-- Web Storage -->
   <section>
     <h2>Web Storage</h2>
@@ -46,11 +38,24 @@
   </section>
 
   <!-- Server-Sent Events -->
+  
   <section>
     <h2>Server-Sent Events (SSE)</h2>
     <div class="box">
-      <div id="messages"></div>
+      <h1>Server Time: <span id="time"></span></h1>
     </div>
+    <script>
+      const eventSource = new EventSource("http://127.0.0.1:5501/3feladat/server.php", { withCredentials: true });
+
+      eventSource.onmessage = function(event) {
+          const data = JSON.parse(event.data);
+          document.getElementById("time").innerText = data.time;
+      };
+
+      eventSource.onerror = function() {
+          console.log("Error connecting to SSE");
+      };
+  </script>
   </section>
 
   <!-- Geolocation API -->
