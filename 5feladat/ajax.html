@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>5. Feladat AJAX</title>
+  <script src="ajax.js"></script>
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body  onload="appendInsertRow()">
+  <header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Főoldal</a></li>
+            <li><a href="/2feladat/tabla.html">Táblázat</a></li>
+            <li><a href="/3feladat/html5.html">HTML5 API</a></li>
+            <li><a href="/4feladat/ChartJS.html">ChartJS</a></li>
+            <li><a href="/5feladat/ajax.html" class="active">AJAX</a></li>
+            <li><a href="/6feladat/oojs.html">OOJS</a></li>
+        </ul>
+  </header>
+
+  <div ></div>
+  <div >
+    <span >Kód</span>
+    <input id="code" value="asdf"  />
+    <button type="button"  onclick="read()">Read</button>
+    <div class="asd">
+      <div  id="status-container">
+        Állapot: <span id="status">-</span>
+      </div>
+    </div>
+  </div>
+  <div >
+    <div ></div>
+    <div >
+      <table  id="tbl">
+        <tr>
+          <th >Id</th>
+          <th >Név</th>
+          <th >Magasság</th>
+          <th >Súly</th>
+          <th >Frissítés</th>
+          <th >Törlés</th>
+        </tr>
+      </table>
+      <div >
+        <table >
+          <tr>
+            <th >Magasság</th>
+            <th >Ösxszeg</th>
+            <th >Átlag</th>
+            <th >Max</th>
+          </tr>
+          <tr id="height-data">
+            <td >Adatok:</td>
+            <td  id="height-sum">-</td>
+            <td  id="height-avg">-</td>
+            <td  id="height-max">-</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div ></div>
+  </div>
+</body>
+
+</html>
