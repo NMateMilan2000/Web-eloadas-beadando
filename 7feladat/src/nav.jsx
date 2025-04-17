@@ -9,10 +9,10 @@ const Layout = () => {
             <Link to="/">Home</Link> 
           </li> 
           <li> 
-            <Link to="/7feladat/blackjack">BlackJack</Link> 
+            <Link to="/react/7feladat/blackjack">BlackJack</Link> 
           </li> 
           <li> 
-            <Link to="/7feladat/rockpaperscissors">RPS</Link> 
+            <Link to="/react/7feladat/rockpaperscissors">RPS</Link> 
           </li> 
         </ul> 
       </nav> 

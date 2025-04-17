@@ -8,7 +8,7 @@ export default function Main2() {
     return ( 
       <BrowserRouter> 
         <Routes> 
-          <Route path="/7feladat" element={<Layout />}>
+          <Route path="/react/7feladat" element={<Layout />}>
             <Route index element={<Home />} /> 
             <Route path="blackjack" element={<BlackjackApp />} />
             <Route path="rockpaperscissors" element={<RockPaperScissorsApp />} />
