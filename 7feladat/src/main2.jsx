@@ -13,7 +13,7 @@ export default function Main2() {
             <Route index element={<Home />} /> 
             <Route path="blackjack" element={<BlackjackApp />} />
             <Route path="rockpaperscissors" element={<RockPaperScissorsApp />} />
-            <Route path="/" element={<Vissza />} />
+            <Route path="/vissza" element={<Vissza />} />
           </Route> 
         </Routes> 
       </BrowserRouter> 
