@@ -37,6 +37,32 @@
     </div>
   </section>
 
+  <script>
+    let workers;
+  
+    function startWorker() {
+      if (typeof(Worker) !== "undefined") {
+        if (!worker) {
+          worker = new Worker("worker.js"); // külön fájl!
+          worker.onmessage = function(event) {
+            document.getElementById("output").innerText = event.data;
+          };
+        }
+      } else {
+        document.getElementById("output").innerText = "A böngésződ nem támogatja a Web Workert.";
+      }
+    }
+  
+    function stopWorker() {
+      if (worker) {
+        worker.terminate();
+        worker = null;
+        document.getElementById("output").innerText = "Worker leállítva.";
+      }
+    }
+  </script>
+  
+
   <!-- Server-Sent Events -->
   
   <section>
