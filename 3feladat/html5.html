@@ -97,8 +97,8 @@
   <section>
     <h2>Drag and Drop</h2>
     <div class="box">
-      <div id="drag-item" draggable="true" ondragstart="drag(event)">Húzz ide!</div>
-      <div id="drop-area" ondrop="drop(event)" ondragover="allowDrop(event)">Húzd ide!</div>
+      <div id="drag1" class="draggable" draggable="true">Húzz ide</div>
+      <div id="dropzone" class="dropzone">Dobd ide</div>
     </div>
   </section>
 
@@ -200,21 +200,33 @@
       }
     }
 
-    // Drag and Drop API példa
-    function allowDrop(event) {
-      event.preventDefault();
-    }
+    // Drag and Drop API 
+    const dragItem = document.getElementById("drag1");
+    const dropZone = document.getElementById("dropzone");
 
-    function drag(event) {
-      event.dataTransfer.setData("text", event.target.id);
-    }
+    // Indul a húzás
+    dragItem.addEventListener("dragstart", function(e) {
+      e.dataTransfer.setData("text/plain", e.target.id);
+    });
 
-    function drop(event) {
-      event.preventDefault();
-      var data = event.dataTransfer.getData("text");
-      var draggedElement = document.getElementById(data);
-      event.target.appendChild(draggedElement);
-    }
+    // Megengedjük a drop-ot
+    dropZone.addEventListener("dragover", function(e) {
+      e.preventDefault(); // szükséges a drop működéséhez
+      dropZone.classList.add("hover");
+    });
+
+    dropZone.addEventListener("dragleave", function() {
+      dropZone.classList.remove("hover");
+    });
+
+    // Elem ledobása
+    dropZone.addEventListener("drop", function(e) {
+      e.preventDefault();
+      const data = e.dataTransfer.getData("text/plain");
+      const draggedElement = document.getElementById(data);
+      dropZone.appendChild(draggedElement);
+      dropZone.classList.remove("hover");
+    });
 
     // Canvas példa
     const canvas = document.getElementById("myCanvas");
